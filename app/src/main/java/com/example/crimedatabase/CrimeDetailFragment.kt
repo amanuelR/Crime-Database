@@ -1,17 +1,17 @@
 package com.example.crimedatabase
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.doOnTextChanged
+import androidx.navigation.fragment.navArgs
 import com.example.crimedatabase.databinding.FragmentCrimeDetailBinding
+import java.util.*
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+private const val TAG = "CrimeDetailFragment"
 
 /**
  * A simple [Fragment] subclass.
@@ -20,14 +20,25 @@ private const val ARG_PARAM2 = "param2"
  */
 class CrimeDetailFragment : Fragment() {
     // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
     private var _binding: FragmentCrimeDetailBinding? = null
     private val binding
         get() = checkNotNull(_binding) {
             "Cannot access binding because it is null. Is the view visible?"
         }
     private lateinit var crime: Crime
+
+    private val args: CrimeDetailFragmentArgs by navArgs()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        crime = Crime(
+            id = UUID.randomUUID(),
+            title = "",
+            date = Date(),
+            isSolved = false
+        )
+        Log.d(TAG, "The crime ID is: ${args.crimeId}")
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
